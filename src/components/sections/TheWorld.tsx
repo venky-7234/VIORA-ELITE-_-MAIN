@@ -14,7 +14,7 @@ const ParallaxImage = ({ className = '' }: { className?: string }) => {
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.25, 1.05]);
   
-  const maskReveal = {
+  const maskReveal: any = {
     hidden: { clipPath: "inset(100% 0 0 0)", opacity: 0 },
     visible: { 
       clipPath: "inset(0% 0 0 0)", 
@@ -59,7 +59,7 @@ const StaggeredText = ({ text, delay = 0, className = '', style = {} }: { text: 
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", damping: 16, stiffness: 100 }
+      transition: { type: "spring" as const, damping: 16, stiffness: 100 }
     },
     hidden: {
       opacity: 0,

@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import './TheStory.css';
 
 // Helper component for true parallax image placeholder with Viora Elite styling
@@ -17,7 +16,7 @@ const ParallaxImage = ({ className = '' }: { className?: string }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [1.25, 1.05]);
   
   // Mask reveal on scroll (sliding open from bottom to top)
-  const maskReveal = {
+  const maskReveal: any = {
     hidden: { clipPath: "inset(100% 0 0 0)", opacity: 0 },
     visible: { 
       clipPath: "inset(0% 0 0 0)", 
@@ -62,7 +61,7 @@ const StaggeredText = ({ text, delay = 0, className = '' }: { text: string, dela
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", damping: 16, stiffness: 100 }
+      transition: { type: "spring" as const, damping: 16, stiffness: 100 }
     },
     hidden: {
       opacity: 0,

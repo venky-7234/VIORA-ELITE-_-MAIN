@@ -1,14 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;400;700;900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/balligesta');
+
 /* Modern Premium Reset & Global Styles */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;400;700;900&display=swap');
-
-@import url('https://fonts.cdnfonts.com/css/balligesta');
-
 :root {
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
