@@ -1,0 +1,82 @@
+.invitation-page {
+  padding-top: 150px;
+  padding-bottom: 100px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invitation-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.invitation-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 5rem);
+  color: var(--accent-color);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.invitation-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 5rem;
+}
+
+.invitation-heading-2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.invitation-body {
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.invitation-button-container {
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  .invitation-page {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+  
+  .invitation-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .invitation-subtitle {
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .invitation-heading-2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .invitation-body {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+  }
+}

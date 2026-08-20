@@ -52,7 +52,7 @@ export const RootLayout: React.FC = () => {
         <Outlet />
       </div>
 
-      <Footer />
+      {location.pathname !== '/invitations' && <Footer />}
     </ReactLenis>
   );
 };

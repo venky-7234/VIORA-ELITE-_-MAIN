@@ -83,6 +83,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
     }
   };
 
+  const handleEditionsClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (location.pathname === '/editions') {
+      e.preventDefault();
+      closeMenu();
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.5 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      closeMenu();
+    }
+  };
+
+  const handleInvitationClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (location.pathname === '/invitations') {
+      e.preventDefault();
+      closeMenu();
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.5 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      closeMenu();
+    }
+  };
+
   const handleFontChange = (font: string) => {
     document.documentElement.setAttribute('data-font', font);
   };
@@ -106,7 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
         {/* Desktop Navigation */}
         <div className="navbar-menu">
           <Link to="/gallery" onClick={handleGalleryClick} className="nav-link">The Journal</Link>
-          <a href="#editions" onClick={(e) => handleNavClick(e, 'editions')} className="nav-link">Editions</a>
+          <Link to="/editions" onClick={handleEditionsClick} className="nav-link">Editions</Link>
           
           {/* Experiences Dropdown */}
           <div className="nav-dropdown-container">
@@ -122,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
             </div>
           </div>
 
-          <a href="#invitations" onClick={(e) => handleNavClick(e, 'invitations')} className="nav-link">Invitations</a>
+          <Link to="/invitations" onClick={handleInvitationClick} className="nav-link">Invitations</Link>
         </div>
 
         {/* Desktop Actions */}
@@ -184,7 +212,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
       <div className={`mobile-drawer ${isOpen ? 'mobile-drawer-open' : ''}`}>
         <div className="mobile-drawer-links">
           <Link to="/gallery" onClick={handleGalleryClick} className="mobile-nav-link">The Journal</Link>
-          <a href="#editions" onClick={(e) => handleNavClick(e, 'editions')} className="mobile-nav-link">Editions</a>
+          <Link to="/editions" onClick={handleEditionsClick} className="mobile-nav-link">Editions</Link>
           
           <div className="mobile-nav-dropdown-group">
             <span className="mobile-nav-link" style={{ cursor: 'default' }}>Experiences</span>
@@ -197,7 +225,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
             </div>
           </div>
           
-          <a href="#invitations" onClick={(e) => handleNavClick(e, 'invitations')} className="mobile-nav-link">Invitations</a>
+          <Link to="/invitations" onClick={handleInvitationClick} className="mobile-nav-link">Invitations</Link>
           
           <div className="mobile-drawer-divider"></div>
           
