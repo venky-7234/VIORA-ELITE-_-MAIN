@@ -1,0 +1,199 @@
+.requirements-section {
+  position: relative;
+  height: 350vh;
+  background-color: var(--bg-color);
+}
+
+.requirements-sticky-container {
+  position: sticky;
+  top: 110px;
+  height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.requirements-header {
+  text-align: left;
+  flex: 1;
+  padding-right: 4rem;
+  transform: translateY(-2rem);
+}
+
+.requirements-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.requirements-subtitle {
+  font-family: var(--font-cursive);
+  font-size: clamp(3rem, 5vw + 1rem, 5rem);
+  color: var(--accent-color);
+  font-weight: 300;
+  display: block;
+  margin-top: -10px;
+}
+
+.requirements-description {
+  margin-top: 1.5rem;
+  max-width: 450px;
+}
+
+.req-desc-title {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.req-desc-text {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  font-weight: 300;
+  opacity: 0.9;
+}
+
+.requirements-track-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.requirements-book {
+  position: relative;
+  width: 320px;
+  height: 400px;
+  perspective: 2000px; /* Enhanced 3D effect moved here */
+}
+
+.requirement-card-container {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.requirement-card {
+  width: 100%;
+  height: 100%;
+  padding: 3rem 2.5rem;
+  background: #fdfbf7; /* Paper color */
+  display: flex;
+  flex-direction: column;
+  /* Remove position absolute from here as it's managed by inline styles for front/back faces */
+}
+
+/* Front Face (Right side of the open book) */
+.requirement-card-front {
+  z-index: 2;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 
+    inset 10px 0 20px rgba(0,0,0,0.05), /* Spine shadow */
+    5px 5px 15px rgba(0,0,0,0.15); /* Drop shadow */
+  border-right: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Back Face (Left side of the open book, visible after flip) */
+.requirement-card-back {
+  background: transparent;
+  border-radius: 15px 0 0 15px; /* Mirrored border radius */
+  box-shadow: 
+    inset -10px 0 20px rgba(0,0,0,0.05), /* Spine shadow on right edge now */
+    -5px 5px 15px rgba(0,0,0,0.15); /* Drop shadow to the left */
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.requirement-card-back::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 20%);
+  border-radius: 15px 0 0 15px;
+  pointer-events: none;
+}
+
+.requirement-card-front::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 20%);
+  border-radius: 0 15px 15px 0;
+  pointer-events: none;
+}
+
+.requirement-card-front:hover {
+  box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+}
+
+.req-num {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.req-card-title {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.req-card-text {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .requirements-sticky-container {
+    flex-direction: column;
+    padding-top: 2rem;
+  }
+  
+  .requirements-header {
+    text-align: center;
+    padding-right: 0;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .requirement-card {
+    width: 300px;
+    padding: 2.5rem 2rem;
+  }
+}
+

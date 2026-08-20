@@ -1,0 +1,165 @@
+.gallery-page-container {
+  padding-top: 80px; /* match navbar height */
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  background-image: url('/Pattern-01.svg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.gallery-header {
+  padding: 30px 0 40px; /* reduced padding */
+  text-align: center;
+}
+
+.gallery-page-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 300;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.gallery-page-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gallery-masonry-section {
+  padding: 0 0 120px 0;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.masonry-grid {
+  column-count: 7;
+  column-gap: 1rem;
+  width: 100%;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  /* Perspective added via inline style for react */
+}
+
+.masonry-card {
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: rgba(212, 175, 55, 0.05); /* very light gold */
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.masonry-card .glass-card-content {
+  padding: 0;
+}
+
+.masonry-image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Aspect Ratios for placeholder images */
+.aspect-landscape {
+  padding-bottom: 75%; 
+}
+.aspect-portrait {
+  padding-bottom: 125%; 
+}
+.aspect-square {
+  padding-bottom: 100%; 
+}
+
+.masonry-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s;
+  /* Filter removed to match screenshot's natural colors */
+}
+
+.masonry-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  opacity: 1; /* Always visible in screenshot */
+  transition: opacity 0.6s ease;
+}
+
+.masonry-title {
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.masonry-subtitle {
+  color: #c9a96e;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Hover Effects */
+.masonry-item:hover .masonry-img {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+  .masonry-grid {
+    column-count: 5;
+  }
+}
+
+@media (max-width: 1024px) {
+  .masonry-grid {
+    column-count: 4;
+    column-gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .masonry-grid {
+    column-count: 3;
+    column-gap: 0.5rem;
+  }
+  .gallery-page-title {
+    font-size: 1.8rem;
+  }
+  .container-fluid {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}

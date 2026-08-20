@@ -1,0 +1,143 @@
+.dune-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.dune-btn-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Sizes */
+.dune-btn-sm {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+.dune-btn-md {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
+.dune-btn-lg {
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+  letter-spacing: 0.05em;
+}
+
+.dune-btn-block {
+  width: 100%;
+}
+
+/* Primary variant */
+.dune-btn-primary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--accent-color); /* Give it a border so it's visible initially */
+  transition: color 350ms linear 650ms, border-color 350ms;
+}
+
+.dune-btn-primary:hover {
+  color: #121215; /* Dark color for contrast against the #f5f3f4 fill */
+  border-color: transparent;
+}
+
+/* Secondary variant */
+.dune-btn-secondary {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-color: var(--card-border);
+}
+
+.dune-btn-secondary:hover {
+  background-color: rgba(var(--accent-rgb), 0.08);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* Outline variant */
+.dune-btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--text-secondary);
+  transition: color 350ms linear 650ms, border-color 350ms;
+}
+
+.dune-btn-outline:hover {
+  color: #121215;
+  border-color: transparent;
+}
+
+/* Text variant */
+.dune-btn-text {
+  background-color: transparent;
+  color: var(--text-primary);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.dune-btn-text:hover {
+  color: var(--accent-color);
+  transform: translateX(3px);
+}
+
+/* Glow Effect */
+.dune-btn-glow {
+  box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.25);
+}
+
+.dune-btn-glow:hover {
+  box-shadow: 0 6px 25px rgba(var(--accent-rgb), 0.45);
+}
+
+/* --- The Requested Animation (Applied to Primary & Outline) --- */
+.dune-btn-primary::before,
+.dune-btn-primary::after,
+.dune-btn-outline::before,
+.dune-btn-outline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0; /* Behind .dune-btn-content (z-index 1) */
+  width: 0;
+  height: 6%;
+}
+
+.dune-btn-primary::before,
+.dune-btn-outline::before {
+  background: var(--accent-color); /* Gold */
+  transition: width 350ms, height 350ms linear 650ms;
+}
+
+.dune-btn-primary:hover::before,
+.dune-btn-outline:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.dune-btn-primary::after,
+.dune-btn-outline::after {
+  background: #f5f3f4; /* Off-white requested */
+  transition: width 350ms linear 175ms, height 350ms linear 650ms;
+}
+
+.dune-btn-primary:hover::after,
+.dune-btn-outline:hover::after {
+  width: 95%;
+  height: 100%;
+}
