@@ -24,7 +24,12 @@ const cards = Array.from({ length: 30 }).map((_, i) => {
   // Parallax speed modifier (some fly slightly faster)
   const speed = 0.8 + Math.random() * 0.5;
 
-  return { id: i, x: xOffset, y: yOffset, z: zOffset, w: width, h: height, speed };
+  // Initial rotations
+  const rotX = (Math.random() - 0.5) * 40;
+  const rotY = (Math.random() - 0.5) * 40;
+  const rotZ = (Math.random() - 0.5) * 20;
+
+  return { id: i, x: xOffset, y: yOffset, z: zOffset, w: width, h: height, speed, rotX, rotY, rotZ };
 });
 
 const FlyThroughCard = ({ card, zMove, isMobile }: { card: any, zMove: MotionValue<number>, isMobile: boolean }) => {
@@ -39,6 +44,18 @@ const FlyThroughCard = ({ card, zMove, isMobile }: { card: any, zMove: MotionVal
   // Fade in from distance (Z < -4000)
   const opacity = useTransform(zCurrent, [-4500, -3000, 600, 1000], [0, 1, 1, 0]);
 
+  // Depth of field blur: blurry far away, sharp in the middle, slightly blurry up close
+  const blur = useTransform(
+    zCurrent, 
+    [-4000, -2000, 0, 500, 1000], 
+    ["blur(15px)", "blur(5px)", "blur(0px)", "blur(0px)", "blur(10px)"]
+  );
+
+  // Dynamic rotation to make it feel like floating
+  const rotateX = useTransform(zCurrent, [-4000, 1000], [card.rotX, card.rotX * -1.5]);
+  const rotateY = useTransform(zCurrent, [-4000, 1000], [card.rotY, card.rotY * -1.5]);
+  const rotateZ = useTransform(zCurrent, [-4000, 1000], [card.rotZ, card.rotZ + 15]);
+
   return (
     <motion.div
       className="social-empty-card"
@@ -51,7 +68,11 @@ const FlyThroughCard = ({ card, zMove, isMobile }: { card: any, zMove: MotionVal
         x: `calc(-50% + ${card.x * spreadScale}vw)`,
         y: `calc(-50% + ${card.y * spreadScale}vh)`,
         z: zCurrent,
-        opacity: opacity
+        rotateX: rotateX,
+        rotateY: rotateY,
+        rotateZ: rotateZ,
+        opacity: opacity,
+        filter: blur
       }}
     />
   );
