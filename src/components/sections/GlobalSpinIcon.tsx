@@ -54,7 +54,7 @@ export const GlobalSpinIcon: React.FC = () => {
               }}
             >
               <img
-                src="/spin-icon.svg"
+                src="/media/icons/spin-icon.svg"
                 alt="Spinning Bird"
                 style={{
                   width: 'clamp(70px, 10vw, 120px)', // Small size like the original logo

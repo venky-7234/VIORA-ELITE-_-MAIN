@@ -51,7 +51,7 @@ export const Hero: React.FC<HeroProps> = ({ onApplyClick }) => {
           style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
           <motion.img
-            src="/spin-icon.svg"
+            src="/media/icons/spin-icon.svg"
             alt="Viora Elite Icon"
             style={{
               y: birdY,

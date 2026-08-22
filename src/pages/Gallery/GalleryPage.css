@@ -2,7 +2,7 @@
   padding-top: 80px; /* match navbar height */
   min-height: 100vh;
   background-color: var(--bg-main);
-  background-image: url('/Pattern-01.svg');
+  background-image: url('/media/icons/Pattern-01.svg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

@@ -95,7 +95,7 @@ export const Movement: React.FC = () => {
 
   return (
     // Make the page tall enough to allow scrolling
-    <div className="retreat-page" ref={containerRef} style={{ height: '250vh', background: 'var(--bg-color)', backgroundImage: 'url("/Pattern-01.svg")', backgroundSize: '800px', backgroundPosition: 'center', backgroundRepeat: 'repeat', position: 'relative' }}>
+    <div className="retreat-page" ref={containerRef} style={{ height: '250vh', background: 'var(--bg-color)', backgroundImage: 'url("/media/icons/Pattern-01.svg")', backgroundSize: '800px', backgroundPosition: 'center', backgroundRepeat: 'repeat', position: 'relative' }}>
       
       {/* Sticky container holds the 3D scene in place */}
       <div style={{ position: 'sticky', top: '110px', height: 'calc(100vh - 110px)', overflow: 'hidden', perspective: '1500px', display: 'flex', flexDirection: 'column' }}>

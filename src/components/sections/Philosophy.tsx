@@ -115,7 +115,7 @@ export const Philosophy: React.FC = () => {
             <div className="visual-glass-panel">
               <div className="visual-glass-content">
                 <div className="phil-card-logo-svg">
-                  <img src="/logo-01.svg" alt="Viora Elite" className="phil-full-svg" />
+                  <img src="/media/icons/logo-01.svg" alt="Viora Elite" className="phil-full-svg" />
                 </div>
                 <div className="visual-divider"></div>
                 <span className="visual-tagline">CURATED EXPERIENCES</span>

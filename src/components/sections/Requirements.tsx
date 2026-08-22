@@ -7,31 +7,31 @@ const requirementsData = [
     num: "01",
     title: "SELECTION",
     text: "Participation is extended by invitation only. Every name at this table is chosen deliberately. Our criteria are not disclosed.",
-    image: "/req-images/req1.jpg"
+    image: "/media/images/req1.jpg"
   },
   {
     num: "02",
     title: "DRESS",
     text: "Men: a suit. Women: cocktail attire. No exceptions. The room has an aesthetic. You are part of it the moment you walk in.",
-    image: "/req-images/req2.jpg"
+    image: "/media/images/req2.jpg"
   },
   {
     num: "03",
     title: "RSVP",
     text: "Confirm or decline. Ghosting is a choice, and it will be treated as one. Silence results in permanent removal from all cities.",
-    image: "/req-images/req3.jpg"
+    image: "/media/images/req3.jpg"
   },
   {
     num: "04",
     title: "PARTICIPATION FEE",
     text: "A participation fee applies. It is the filter that separates those who understand the value of a room from those who do not.",
-    image: "/req-images/req4.jpg"
+    image: "/media/images/req4.jpg"
   },
   {
     num: "05",
     title: "THE EVENING",
     text: "Food and beverages are settled individually with the venue. You are among equals. The conversation is the hospitality.",
-    image: "/req-images/req5.jpg"
+    image: "/media/images/req5.jpg"
   },
   {
     num: "06",
@@ -127,7 +127,7 @@ const FlipBookPage = ({ index, total, scrollYProgress, req }: { index: number, t
     >
       {/* Front Face (Right Page) */}
       <div className="requirement-card requirement-card-front" style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', padding: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', transform: 'translateZ(1px)' }}>
-        <img src="/spin-icon.svg" alt="Viora" style={{ width: '180px', height: '180px', opacity: 0.8 }} />
+        <img src="/media/icons/spin-icon.svg" alt="Viora" style={{ width: '180px', height: '180px', opacity: 0.8 }} />
       </div>
 
       {/* Back Face (Left Page, visible after flip) */}
@@ -140,7 +140,7 @@ const FlipBookPage = ({ index, total, scrollYProgress, req }: { index: number, t
           />
         ) : (
           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f0e6', borderRadius: '15px 0 0 15px' }}>
-            <img src="/spin-icon.svg" alt="Viora" style={{ width: '180px', height: '180px', opacity: 0.8 }} />
+            <img src="/media/icons/spin-icon.svg" alt="Viora" style={{ width: '180px', height: '180px', opacity: 0.8 }} />
           </div>
         )}
       </div>
