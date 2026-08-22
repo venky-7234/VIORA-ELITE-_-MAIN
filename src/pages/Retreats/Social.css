@@ -7,8 +7,8 @@
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  /* Very tall to allow vertical scrolling (increased to 800vh for a slower, more deliberate animation speed) */
-  height: 800vh;
+  /* Normal viewport height, scene auto-plays infinitely */
+  height: 100vh;
 }
 
 .social-sticky-container {
