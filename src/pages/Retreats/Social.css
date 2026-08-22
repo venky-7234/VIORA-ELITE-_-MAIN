@@ -7,8 +7,8 @@
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  /* Normal viewport height, scene auto-plays infinitely */
-  height: 100vh;
+  /* Very tall to allow vertical scrolling */
+  height: 400vh;
 }
 
 .social-sticky-container {

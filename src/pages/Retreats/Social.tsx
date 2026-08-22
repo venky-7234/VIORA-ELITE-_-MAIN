@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Social.css';
-import { motion, useScroll, useTransform, MotionValue, useTime } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
 // Generate 30 scattered empty cards along the Z-axis for a 3D tunnel effect
 const cards = Array.from({ length: 30 }).map((_, i) => {
@@ -37,26 +37,17 @@ const FlyThroughCard = ({ card, zMove, isMobile }: { card: any, zMove: MotionVal
   const scale = isMobile ? 0.5 : 1;
   const spreadScale = isMobile ? 0.7 : 1;
   
-  // Continuous Z position based on time
-  const zCurrent = useTransform(zMove, (val: number) => {
-    // Add time-based progress to card's initial Z
-    const rawZ = card.z + (val * card.speed);
-    
-    // Wrap seamlessly from 1000 (past camera) back to -12000 (far distance)
-    const minZ = -12000;
-    const maxZ = 1000;
-    const range = maxZ - minZ;
-    return ((((rawZ - minZ) % range) + range) % range) + minZ;
-  });
+  // Calculate this card's current Z position based on the global zMove and its own speed
+  const zCurrent = useTransform(zMove, (val: number) => card.z + (val * card.speed));
   
-  // Fade out as it passes the camera (Perspective is 1000px)
-  // Fade in from distance (Z < -10000)
-  const opacity = useTransform(zCurrent, [-11500, -9000, 600, 1000], [0, 1, 1, 0]);
+  // Fade out as it passes the camera (Perspective is 1000px, so Z > 800 is right in your face)
+  // Fade in from distance (Z < -4000)
+  const opacity = useTransform(zCurrent, [-4500, -3000, 600, 1000], [0, 1, 1, 0]);
 
   // Dynamic rotation to make it feel like floating
-  const rotateX = useTransform(zCurrent, [-12000, 1000], [card.rotX, card.rotX * -1.5]);
-  const rotateY = useTransform(zCurrent, [-12000, 1000], [card.rotY, card.rotY * -1.5]);
-  const rotateZ = useTransform(zCurrent, [-12000, 1000], [card.rotZ, card.rotZ + 15]);
+  const rotateX = useTransform(zCurrent, [-4000, 1000], [card.rotX, card.rotX * -1.5]);
+  const rotateY = useTransform(zCurrent, [-4000, 1000], [card.rotY, card.rotY * -1.5]);
+  const rotateZ = useTransform(zCurrent, [-4000, 1000], [card.rotZ, card.rotZ + 15]);
 
   return (
     <motion.div
@@ -91,22 +82,22 @@ export const Social: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Auto-playing time loop (like Hero section) instead of scroll
-  const time = useTime();
-  // Travel 13000 units over ~25 seconds (speed matching hero section)
-  // 13000 / 25000ms = 0.52
-  const zMove = useTransform(time, (t) => t * 0.52);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Global Z movement: travels 12,000px deep through the tunnel
+  const zMove = useTransform(scrollYProgress, [0, 1], [0, 12000]);
 
   return (
     <div className="social-page" ref={containerRef}>
       <div className="social-sticky-container">
         
-        {/* Stationary Text Block - Always visible since it's an infinite loop */}
+        {/* Stationary Text Block - Fades in at the end of scroll */}
         <motion.div 
           className="social-text-content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 0.5 }}
+          style={{ opacity: useTransform(scrollYProgress, [0.8, 0.95], [0, 1]) }}
         >
           <h1 className="social-headline">
             SOCIAL
