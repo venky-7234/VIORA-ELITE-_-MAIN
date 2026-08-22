@@ -71,11 +71,7 @@ export const Wellness: React.FC = () => {
           >
             <div className="flex-card-bg"></div>
             <div className="flex-card-content">
-              <div className="flex-card-title-wrapper">
-                <h3 className="flex-card-title">{retreat.title}</h3>
-              </div>
-              <p className="flex-card-desc">{retreat.desc}</p>
-              <button className="flex-card-btn">Explore</button>
+              {/* Text removed as requested */}
             </div>
           </div>
         ))}
