@@ -57,14 +57,7 @@
   width: max-content;
 }
 
-/* Animation Directions */
-.row-left .marquee-track {
-  animation: scroll-left 40s linear infinite;
-}
-
-.row-right .marquee-track {
-  animation: scroll-right 40s linear infinite;
-}
+/* Animation Directions are now handled by Framer Motion in JS */
 
 /* The Cards */
 .marquee-card {
@@ -109,16 +102,7 @@
   100% { background-position: -200% 0; }
 }
 
-/* Keyframes */
-@keyframes scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 0.75rem)); }
-}
-
-@keyframes scroll-right {
-  0% { transform: translateX(calc(-50% - 0.75rem)); }
-  100% { transform: translateX(0); }
-}
+/* Keyframes (Removed, using Framer Motion) */
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
@@ -144,12 +128,5 @@
   .marquee-card {
     width: 220px;
     height: 180px;
-  }
-
-  .row-left .marquee-track {
-    animation-duration: 30s;
-  }
-  .row-right .marquee-track {
-    animation-duration: 30s;
   }
 }
