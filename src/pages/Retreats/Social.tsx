@@ -1,20 +1,61 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Social.css';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
-// Generate 20 scattered empty cards along a horizontal path
-const cards = Array.from({ length: 20 }).map((_, i) => {
-  // Spread them horizontally starting from right of the screen (50vw) up to 350vw
-  const xOffset = 50 + (i * 15) + (Math.random() * 10); // in vw
-  // Scatter them vertically between 15% and 75% height
-  const yOffset = 15 + Math.random() * 60; // in vh
+// Generate 30 scattered empty cards along the Z-axis for a 3D tunnel effect
+const cards = Array.from({ length: 30 }).map((_, i) => {
+  // Z-offset determines how far away it starts. Negative is far away.
+  const zOffset = -(i * 300) - (Math.random() * 500); 
+  
+  // X and Y scattered radially from the center so they don't block the camera
+  // Spread wider as they get further back
+  const spread = 40 + (i * 2);
+  const angle = Math.random() * Math.PI * 2;
+  const distanceX = (Math.random() * 0.5 + 0.5) * spread; // Push outwards
+  const distanceY = (Math.random() * 0.5 + 0.5) * (spread * 0.7); 
+  
+  const xOffset = Math.cos(angle) * distanceX; // in vw
+  const yOffset = Math.sin(angle) * distanceY; // in vh
   
   // Random dimensions
-  const width = 200 + Math.random() * 150;
-  const height = width * (1.1 + Math.random() * 0.4);
+  const width = 150 + Math.random() * 150;
+  const height = width * (1.2 + Math.random() * 0.3);
   
-  return { id: i, x: xOffset, y: yOffset, w: width, h: height };
+  // Parallax speed modifier (some fly slightly faster)
+  const speed = 0.8 + Math.random() * 0.5;
+
+  return { id: i, x: xOffset, y: yOffset, z: zOffset, w: width, h: height, speed };
 });
+
+const FlyThroughCard = ({ card, zMove, isMobile }: { card: any, zMove: MotionValue<number>, isMobile: boolean }) => {
+  // Mobile scales down the spread and dimensions so it fits
+  const scale = isMobile ? 0.5 : 1;
+  const spreadScale = isMobile ? 0.7 : 1;
+  
+  // Calculate this card's current Z position based on the global zMove and its own speed
+  const zCurrent = useTransform(zMove, (val: number) => card.z + (val * card.speed));
+  
+  // Fade out as it passes the camera (Perspective is 1000px, so Z > 800 is right in your face)
+  // Fade in from distance (Z < -4000)
+  const opacity = useTransform(zCurrent, [-4500, -3000, 600, 1000], [0, 1, 1, 0]);
+
+  return (
+    <motion.div
+      className="social-empty-card"
+      style={{
+        width: card.w * scale,
+        height: card.h * scale,
+        // Centered base, then offset
+        left: '50%',
+        top: '50%',
+        x: `calc(-50% + ${card.x * spreadScale}vw)`,
+        y: `calc(-50% + ${card.y * spreadScale}vh)`,
+        z: zCurrent,
+        opacity: opacity
+      }}
+    />
+  );
+};
 
 export const Social: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -33,8 +74,8 @@ export const Social: React.FC = () => {
     offset: ["start start", "end end"]
   });
 
-  // Translate the entire track horizontally to the left
-  const trackX = useTransform(scrollYProgress, [0, 1], ["0vw", "-350vw"]);
+  // Global Z movement: travels 12,000px deep through the tunnel
+  const zMove = useTransform(scrollYProgress, [0, 1], [0, 12000]);
 
   return (
     <div className="social-page" ref={containerRef}>
@@ -54,27 +95,12 @@ export const Social: React.FC = () => {
           </p>
         </div>
 
-        {/* Moving Track */}
-        <motion.div className="social-track" style={{ x: trackX }}>
-          
-          {cards.map((card) => {
-            const scale = isMobile ? 0.6 : 1;
-            return (
-              <div
-                key={card.id}
-                className="social-empty-card"
-                style={{
-                  width: card.w * scale,
-                  height: card.h * scale,
-                  left: `${card.x}vw`,
-                  top: `${card.y}vh`,
-                }}
-              >
-                {/* Empty card placeholder */}
-              </div>
-            );
-          })}
-        </motion.div>
+        {/* 3D Fly-through Scene */}
+        <div className="social-3d-scene">
+          {cards.map((card) => (
+            <FlyThroughCard key={card.id} card={card} zMove={zMove} isMobile={isMobile} />
+          ))}
+        </div>
         
       </div>
     </div>

@@ -1,15 +1,13 @@
 .social-page {
   position: relative;
   width: 100%;
-  /* Fine-lined off-white background from the reference */
   background-color: #fafafa;
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: url('/Pattern-01.svg');
+  background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   /* Very tall to allow vertical scrolling */
-  height: 500vh;
+  height: 400vh;
 }
 
 .social-sticky-container {
@@ -18,15 +16,18 @@
   height: calc(100vh - 110px);
   width: 100%;
   overflow: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.social-track {
-  display: flex;
+.social-3d-scene {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  /* We will translate this horizontally with framer motion */
+  width: 100vw;
+  height: 100vh;
+  transform-style: preserve-3d;
 }
 
 /* Static text block on the left */
@@ -36,7 +37,7 @@
   top: 40%;
   transform: translateY(-50%);
   max-width: 500px;
-  z-index: 10;
+  z-index: 100;
   pointer-events: none;
 }
 
@@ -82,19 +83,26 @@
 /* Empty Card Styles */
 .social-empty-card {
   position: absolute;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.05);
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.5);
   overflow: hidden;
-  /* The cards themselves are static on the track, we move the track */
+  /* Prevent trimming */
+  transform-style: preserve-3d;
 }
 
-.social-empty-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.social-empty-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(0,0,0,0.15);
+  border-radius: 8px;
 }
 
 /* Mobile responsive adjustments */
@@ -105,7 +113,7 @@
   }
   .social-text-content {
     left: 5vw;
-    top: 30%;
+    top: 25%;
   }
   .social-headline {
     font-size: 3rem;
