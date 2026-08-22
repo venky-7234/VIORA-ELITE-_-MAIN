@@ -142,11 +142,12 @@
 
 /* Mobile Responsiveness & Minimizing scroll depth */
 @media (max-width: 992px) {
-  .edition-asymmetric-section {
+  .edition-asymmetric-section,
+  .edition-asymmetric-section.reverse {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 5rem;
-    padding: 0 1rem;
+    gap: 0;
+    margin-bottom: 3rem;
+    padding: 0;
     direction: ltr !important; /* Stack normally on mobile */
   }
 
@@ -154,17 +155,26 @@
     direction: ltr;
   }
 
-  /* Force image below text on mobile for consistency */
+  .edition-text-col, .edition-image-col {
+    padding: 3rem 2rem;
+  }
+
   .edition-text-col {
     order: 1;
-    padding: 0;
-    text-align: center;
+    text-align: left;
   }
 
   .edition-image-col {
     order: 2;
     min-height: unset; /* Remove large minimum height */
-    height: 250px; /* Small fixed height to prevent excessive scrolling */
+    padding-top: 0;
+  }
+  
+  .edition-inner-img {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-width: 400px;
+    margin: 0 auto;
   }
   
   .edition-text-inner {
