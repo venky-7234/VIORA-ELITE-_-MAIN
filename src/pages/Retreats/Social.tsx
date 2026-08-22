@@ -102,19 +102,15 @@ export const Social: React.FC = () => {
     <div className="social-page" ref={containerRef}>
       <div className="social-sticky-container">
         
-        {/* Stationary Text Block */}
-        <div className="social-text-content">
-          <div className="social-sub-label">
-            SELECTED WORK - 2014 - 2026
-          </div>
-          <h2 className="social-headline">
-            <span>Every frame,</span>
-            <span>every story.</span>
-          </h2>
-          <p className="social-paragraph">
-            Twelve years of editorial, commercial, and personal projects, presented as an infinite reel. Hover to feel it; click to see a full gallery.
-          </p>
-        </div>
+        {/* Stationary Text Block - Fades in at the end of scroll */}
+        <motion.div 
+          className="social-text-content"
+          style={{ opacity: useTransform(scrollYProgress, [0.8, 0.95], [0, 1]) }}
+        >
+          <h1 className="social-headline">
+            SOCIAL
+          </h1>
+        </motion.div>
 
         {/* 3D Fly-through Scene */}
         <div className="social-3d-scene">
