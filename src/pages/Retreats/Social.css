@@ -1,0 +1,70 @@
+.social-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 110px; /* navbar offset */
+  overflow: hidden;
+}
+
+.social-video-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: calc(100vh - 150px);
+  margin: 0 auto 40px auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.social-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.social-overlay-text {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  color: #fff;
+  z-index: 10;
+  text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.social-title {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.social-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+}
+
+/* Mobile specific styling for the exact full-screen feel */
+@media (max-width: 768px) {
+  .social-page {
+    padding-top: 0;
+  }
+  
+  .social-video-container {
+    border-radius: 0;
+    height: 100vh; /* Full mobile screen */
+    margin-bottom: 0;
+  }
+
+  .social-title {
+    font-size: 3rem;
+  }
+}
