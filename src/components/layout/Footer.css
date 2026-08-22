@@ -16,8 +16,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--bg-color); /* Adapt to current theme (Light/Dark/Royal) */
-  opacity: 0.85; /* Blend the pattern subtly into the theme's background */
+  /* Force a dark overlay so the white text is always visible, regardless of the active theme */
+  background: #1a050c; 
+  opacity: 0.90; 
   pointer-events: none;
   z-index: 0;
 }

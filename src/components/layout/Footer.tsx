@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
         <div className="footer-top">
           <a href="#" className="footer-logo" onClick={handleScrollToTop}>
             <div className="viora-nav-brand">
-              <img src="/viora-text-only.svg" alt="Viora Elite" className="viora-nav-bird" style={{ width: '150px' }} />
+              <img src="/media/icons/viora-text-only.svg" alt="Viora Elite" className="viora-nav-bird" style={{ width: '150px' }} />
             </div>
           </a>
 
