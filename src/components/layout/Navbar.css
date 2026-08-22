@@ -63,8 +63,8 @@
 }
 
 .viora-nav-bird {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   margin: 0;
   object-fit: contain;
   filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.45));
