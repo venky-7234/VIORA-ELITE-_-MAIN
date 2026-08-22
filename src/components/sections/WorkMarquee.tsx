@@ -77,9 +77,9 @@ export const WorkMarquee: React.FC = () => {
     <section id="work" className="work-marquee-section">
       <div className="work-marquee-container">
         {/* Row 1: Moves Left (- velocity) */}
-        <ParallaxRow baseVelocity={-15} items={row1Cards} rowId="row1" />
+        <ParallaxRow baseVelocity={-3} items={row1Cards} rowId="row1" />
         {/* Row 2: Moves Right (+ velocity) */}
-        <ParallaxRow baseVelocity={15} items={row2Cards} rowId="row2" />
+        <ParallaxRow baseVelocity={3} items={row2Cards} rowId="row2" />
       </div>
     </section>
   );
