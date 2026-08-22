@@ -27,20 +27,52 @@
   line-height: 1.8;
 }
 
-.edition-item {
+/* Asymmetric Section Layout */
+.edition-asymmetric-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 8rem;
+  padding: 0 2rem;
+}
+
+.edition-asymmetric-section.reverse {
+  direction: rtl;
+}
+
+.edition-asymmetric-section.reverse > * {
+  direction: ltr;
+}
+
+.edition-text-col {
+  padding: 2rem 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.edition-text-inner {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.edition-image-col {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10rem;
-  text-align: center;
 }
 
-.edition-heading {
-  margin-bottom: 3rem;
-  max-width: 800px;
+.edition-inner-img {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
+/* Typographic Elements inside the layout */
 .edition-number-title {
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -54,14 +86,20 @@
   font-style: italic;
   font-size: 1.2rem;
   color: var(--accent-color);
+  margin-bottom: 2rem;
 }
 
+.edition-description {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Image Container */
 .edition-image-container {
   width: 100%;
-  max-width: 900px;
-  height: 50vh;
-  min-height: 400px;
-  margin-bottom: 3rem;
+  height: 100%;
   position: relative;
   border-radius: 16px;
   overflow: hidden;
@@ -102,13 +140,40 @@
   z-index: 2;
 }
 
-.edition-description {
-  font-family: var(--font-sans);
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  max-width: 700px;
-  margin: 0 auto;
+/* Mobile Responsiveness & Minimizing scroll depth */
+@media (max-width: 992px) {
+  .edition-asymmetric-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 5rem;
+    padding: 0 1rem;
+    direction: ltr !important; /* Stack normally on mobile */
+  }
+
+  .edition-asymmetric-section.reverse > * {
+    direction: ltr;
+  }
+
+  /* Force image below text on mobile for consistency */
+  .edition-text-col {
+    order: 1;
+    padding: 0;
+    text-align: center;
+  }
+
+  .edition-image-col {
+    order: 2;
+    min-height: unset; /* Remove large minimum height */
+    height: 250px; /* Small fixed height to prevent excessive scrolling */
+  }
+  
+  .edition-text-inner {
+    max-width: 100%;
+  }
+  
+  .editions-header {
+    margin-bottom: 3rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -117,34 +182,14 @@
     padding-bottom: 60px;
   }
   
-  .editions-header {
-    margin-bottom: 4rem;
-    padding: 0 1rem;
-  }
-  
   .editions-intro {
     font-size: 1rem;
     line-height: 1.6;
   }
   
-  .edition-item {
-    margin-bottom: 6rem;
-    padding: 0 1rem;
-  }
-  
-  .edition-heading {
-    margin-bottom: 2rem;
-  }
-  
   .edition-subtitle {
     font-size: 1rem;
-  }
-  
-  .edition-image-container {
-    height: 40vh;
-    min-height: 250px;
-    margin-bottom: 2rem;
-    border-radius: 12px;
+    margin-bottom: 1.5rem;
   }
   
   .edition-description {

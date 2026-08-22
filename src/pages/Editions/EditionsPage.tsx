@@ -41,15 +41,58 @@ const ParallaxImage = ({ className = '' }: { className?: string }) => {
   );
 };
 
-// Fade up animation for text elements
-const FadeUp = ({ children, delay = 0, className = '' }: { children: React.ReactNode, delay?: number, className?: string }) => {
+// Word-by-word staggering text animation
+const StaggeredText = ({ text, delay = 0, className = '', style = {} }: { text: string, delay?: number, className?: string, style?: React.CSSProperties }) => {
+  const words = text.split(" ");
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.04, delayChildren: delay }
+    }
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring" as const, damping: 16, stiffness: 100 }
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+    }
+  };
+
+  return (
+    <motion.p
+      className={className}
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      style={{ display: "flex", flexWrap: "wrap", gap: "0.25em", ...style }}
+    >
+      {words.map((word, index) => (
+        <motion.span variants={child} key={index} style={{ display: "inline-block" }}>
+          {word}
+        </motion.span>
+      ))}
+    </motion.p>
+  );
+};
+
+// Line reveal for Headings
+const RevealHeading = ({ children, delay = 0, className = '', style = {} }: { children: React.ReactNode, delay?: number, className?: string, style?: React.CSSProperties }) => {
   return (
     <motion.div
-      initial={{ y: 40, opacity: 0 }}
+      initial={{ y: 30, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true }}
       transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
+      style={style}
     >
       {children}
     </motion.div>
@@ -95,40 +138,50 @@ export const EditionsPage: React.FC = () => {
       <div className="container">
         
         <div className="editions-header">
-          <FadeUp>
+          <RevealHeading>
             <h1 className="editions-title shiny-heading">EDITIONS</h1>
-          </FadeUp>
-          <FadeUp delay={0.2}>
-            <p className="editions-intro">
-              Every Viora edition begins with an idea.<br/>
-              A mood, a setting, a sense of curiosity — brought together into an experience with a character of its own.<br/><br/>
-              These are a few of the worlds Viora is preparing to bring to life.
-            </p>
-          </FadeUp>
+          </RevealHeading>
+          <StaggeredText 
+            delay={0.2}
+            className="editions-intro"
+            style={{ justifyContent: 'center' }}
+            text="Every Viora edition begins with an idea. A mood, a setting, a sense of curiosity — brought together into an experience with a character of its own. These are a few of the worlds Viora is preparing to bring to life."
+          />
         </div>
 
         <div className="editions-list">
-          {editions.map((edition, index) => (
-            <div key={index} className="edition-item">
-              <div className="edition-heading">
-                <FadeUp>
-                  <h2 className="edition-number-title">
-                    <span style={{ color: 'var(--accent-color)', marginRight: '1rem' }}>{edition.num} —</span> 
-                    {edition.title}
-                  </h2>
-                </FadeUp>
-                <FadeUp delay={0.1}>
-                  <p className="edition-subtitle">{edition.subtitle}</p>
-                </FadeUp>
-              </div>
-
-              <ParallaxImage />
-
-              <FadeUp delay={0.2}>
-                <p className="edition-description">{edition.desc}</p>
-              </FadeUp>
-            </div>
-          ))}
+          {editions.map((edition, index) => {
+            const isReverse = index % 2 !== 0;
+            return (
+              <section key={index} className={`edition-asymmetric-section ${isReverse ? 'reverse' : ''}`}>
+                <div className="edition-text-col">
+                  <div className="edition-text-inner">
+                    <RevealHeading delay={0.1}>
+                      <h2 className="edition-number-title">
+                        <span style={{ color: 'var(--accent-color)', marginRight: '1rem' }}>{edition.num} —</span> 
+                        {edition.title}
+                      </h2>
+                    </RevealHeading>
+                    <RevealHeading delay={0.2}>
+                      <p className="edition-subtitle">{edition.subtitle}</p>
+                    </RevealHeading>
+                    
+                    <StaggeredText 
+                      delay={0.3}
+                      className="edition-description"
+                      text={edition.desc}
+                    />
+                  </div>
+                </div>
+                
+                <div className="edition-image-col">
+                  <div className="edition-inner-img">
+                    <ParallaxImage />
+                  </div>
+                </div>
+              </section>
+            );
+          })}
         </div>
         
       </div>
