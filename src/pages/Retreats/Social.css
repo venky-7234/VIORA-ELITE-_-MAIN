@@ -44,12 +44,13 @@
 
 .social-headline {
   font-family: var(--font-heading);
-  font-size: clamp(4rem, 15vw, 12rem);
-  color: var(--text-primary);
+  font-size: clamp(2rem, 8vw, 8rem);
+  color: var(--accent-color);
   line-height: 1;
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 /* Empty Card Styles */
