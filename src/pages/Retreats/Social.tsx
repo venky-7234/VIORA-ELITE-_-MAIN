@@ -44,13 +44,6 @@ const FlyThroughCard = ({ card, zMove, isMobile }: { card: any, zMove: MotionVal
   // Fade in from distance (Z < -4000)
   const opacity = useTransform(zCurrent, [-4500, -3000, 600, 1000], [0, 1, 1, 0]);
 
-  // Depth of field blur: blurry far away, sharp in the middle, slightly blurry up close
-  const blur = useTransform(
-    zCurrent, 
-    [-4000, -2000, 0, 500, 1000], 
-    ["blur(15px)", "blur(5px)", "blur(0px)", "blur(0px)", "blur(10px)"]
-  );
-
   // Dynamic rotation to make it feel like floating
   const rotateX = useTransform(zCurrent, [-4000, 1000], [card.rotX, card.rotX * -1.5]);
   const rotateY = useTransform(zCurrent, [-4000, 1000], [card.rotY, card.rotY * -1.5]);
@@ -71,8 +64,7 @@ const FlyThroughCard = ({ card, zMove, isMobile }: { card: any, zMove: MotionVal
         rotateX: rotateX,
         rotateY: rotateY,
         rotateZ: rotateZ,
-        opacity: opacity,
-        filter: blur
+        opacity: opacity
       }}
     />
   );

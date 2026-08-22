@@ -55,14 +55,16 @@
 /* Empty Card Styles */
 .social-empty-card {
   position: absolute;
-  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  /* Use a slightly more opaque background since we removed backdrop blur for performance */
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
   border-radius: 12px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.5);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.8);
   overflow: hidden;
   /* Prevent trimming */
   transform-style: preserve-3d;
+  /* Performance optimization */
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
 }
 
 .social-empty-card::after {
