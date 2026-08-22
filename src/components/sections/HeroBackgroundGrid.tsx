@@ -5,14 +5,14 @@ export const HeroBackgroundGrid: React.FC = () => {
   // We'll create 8 columns to make the cards smaller.
   // Each column will have 8 cards, duplicated once (16 total).
   const cols = [
-    { direction: 'up', cards: 8 },
-    { direction: 'down', cards: 8 },
-    { direction: 'up', cards: 8 },
-    { direction: 'down', cards: 8 },
-    { direction: 'up', cards: 8 },
-    { direction: 'down', cards: 8 },
-    { direction: 'up', cards: 8 },
-    { direction: 'down', cards: 8 },
+    { direction: 'up', cards: 20 },
+    { direction: 'down', cards: 20 },
+    { direction: 'up', cards: 20 },
+    { direction: 'down', cards: 20 },
+    { direction: 'up', cards: 20 },
+    { direction: 'down', cards: 20 },
+    { direction: 'up', cards: 20 },
+    { direction: 'down', cards: 20 },
   ];
 
   return (
