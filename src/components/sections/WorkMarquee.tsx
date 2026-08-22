@@ -35,7 +35,7 @@ const ParallaxRow: React.FC<ParallaxRowProps> = ({ baseVelocity = 100, items, ro
 
   const directionFactor = useRef<number>(1);
 
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
     // Optional: Reverse direction when scrolling up
