@@ -127,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
         {/* Logo */}
         <a href="#home" className="navbar-logo" onClick={(e) => handleNavClick(e, 'home')}>
           <div className="viora-nav-brand">
-            <img src="/logo-01.svg" alt="Viora Elite" className="viora-nav-bird" />
+            <img src="/viora_bird.png" alt="Viora Elite" className="viora-nav-bird" />
           </div>
         </a>
 
