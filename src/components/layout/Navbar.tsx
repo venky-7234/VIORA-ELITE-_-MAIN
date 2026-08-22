@@ -142,11 +142,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
               Experiences <span className="nav-dropdown-arrow">▼</span>
             </span>
             <div className="nav-dropdown-menu">
+              <Link to="/retreats/social" className="nav-dropdown-item">Social</Link>
+              <Link to="/retreats/wellness" className="nav-dropdown-item">Wellness</Link>
               <Link to="/retreats/movement" className="nav-dropdown-item">Movement</Link>
-              <Link to="/retreats/cottage" className="nav-dropdown-item">Cottage</Link>
-              <Link to="/retreats/lake" className="nav-dropdown-item">Lake</Link>
-              <Link to="/retreats/villa" className="nav-dropdown-item">Villa</Link>
-              <Link to="/retreats/estate" className="nav-dropdown-item">Estate</Link>
+              <Link to="/retreats/escapes" className="nav-dropdown-item">Escapes</Link>
+              <Link to="/retreats/culture" className="nav-dropdown-item">Culture</Link>
             </div>
           </div>
 
@@ -217,11 +217,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
           <div className="mobile-nav-dropdown-group">
             <span className="mobile-nav-link" style={{ cursor: 'default' }}>Experiences</span>
             <div className="mobile-nav-sublinks">
+              <Link to="/retreats/social" onClick={closeMenu} className="mobile-nav-sublink">Social</Link>
+              <Link to="/retreats/wellness" onClick={closeMenu} className="mobile-nav-sublink">Wellness</Link>
               <Link to="/retreats/movement" onClick={closeMenu} className="mobile-nav-sublink">Movement</Link>
-              <Link to="/retreats/cottage" onClick={closeMenu} className="mobile-nav-sublink">Cottage</Link>
-              <Link to="/retreats/lake" onClick={closeMenu} className="mobile-nav-sublink">Lake</Link>
-              <Link to="/retreats/villa" onClick={closeMenu} className="mobile-nav-sublink">Villa</Link>
-              <Link to="/retreats/estate" onClick={closeMenu} className="mobile-nav-sublink">Estate</Link>
+              <Link to="/retreats/escapes" onClick={closeMenu} className="mobile-nav-sublink">Escapes</Link>
+              <Link to="/retreats/culture" onClick={closeMenu} className="mobile-nav-sublink">Culture</Link>
             </div>
           </div>
           
