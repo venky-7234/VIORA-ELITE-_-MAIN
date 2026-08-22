@@ -58,14 +58,10 @@
   overflow: hidden;
   cursor: pointer;
   transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  /* Physical paper texture base */
-  background-color: #fdfbf7;
-  background-image: 
-    linear-gradient(to right, rgba(0,0,0,0.03) 0%, transparent 5%, transparent 95%, rgba(0,0,0,0.03) 100%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  background-color: var(--card-bg);
   box-shadow: 
-    -5px 0 15px rgba(0, 0, 0, 0.2),
-    inset 1px 0 2px rgba(255, 255, 255, 0.9);
+    -5px 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.1);
   border: 1px solid rgba(212, 175, 55, 0.3);
   display: flex;
   align-items: flex-end;
@@ -74,8 +70,8 @@
 .flex-card.active {
   flex: 7;
   box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.4),
-    inset 1px 0 2px rgba(255, 255, 255, 0.9);
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.2);
   border: 1px solid rgba(212, 175, 55, 0.6);
 }
 
@@ -90,12 +86,7 @@
   transition: transform 0.6s ease;
   z-index: 0;
 }
-.flex-card-bg::after {
-  content: '';
-  position: absolute;
-  top:0;left:0;right:0;bottom:0;
-  background: linear-gradient(to top, rgba(253, 251, 247, 0.9) 0%, transparent 50%);
-}
+/* Removed the bright gradient overlay so images pop */
 
 .flex-card-content {
   position: relative;
