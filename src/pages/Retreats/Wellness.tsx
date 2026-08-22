@@ -69,7 +69,7 @@ export const Wellness: React.FC = () => {
             onClick={() => setActiveCard(retreat.id)}
             onMouseEnter={() => setActiveCard(retreat.id)}
           >
-            <div className="flex-card-bg" style={{ backgroundImage: `url(${retreat.img})` }}></div>
+            <div className="flex-card-bg"></div>
             <div className="flex-card-content">
               {/* Text removed as requested */}
             </div>

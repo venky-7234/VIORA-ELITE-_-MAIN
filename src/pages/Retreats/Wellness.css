@@ -58,21 +58,20 @@
   overflow: hidden;
   cursor: pointer;
   transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  background-color: var(--card-bg);
-  box-shadow: 
-    -5px 0 15px rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: rgba(18, 2, 8, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: flex-end;
 }
 
 .flex-card.active {
   flex: 7;
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.6),
-    inset 0 0 0 1px rgba(212, 175, 55, 0.2);
-  border: 1px solid rgba(212, 175, 55, 0.6);
+  background: rgba(18, 2, 8, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.1);
 }
 
 .flex-card-bg {
@@ -81,10 +80,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.6s ease;
   z-index: 0;
+  pointer-events: none;
 }
 /* Removed the bright gradient overlay so images pop */
 
