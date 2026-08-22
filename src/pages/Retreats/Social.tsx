@@ -100,7 +100,7 @@ export const Social: React.FC = () => {
           style={{ opacity: useTransform(scrollYProgress, [0.8, 0.95], [0, 1]) }}
         >
           <h1 className="social-headline">
-            SOCIAL
+            FRAMING MEMORIES
           </h1>
         </motion.div>
 
