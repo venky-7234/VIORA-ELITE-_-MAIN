@@ -14,6 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileExperiencesOpen, setMobileExperiencesOpen] = useState(false);
   const lenis = useLenis();
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,8 +28,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    if (isOpen) setMobileExperiencesOpen(false); // Reset dropdown when closing drawer
+  };
+  const closeMenu = () => {
+    setIsOpen(false);
+    setMobileExperiencesOpen(false);
+  };
+  
+  const toggleMobileExperiences = () => setMobileExperiencesOpen(!mobileExperiencesOpen);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -215,8 +224,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
           <Link to="/editions" onClick={handleEditionsClick} className="mobile-nav-link">Editions</Link>
           
           <div className="mobile-nav-dropdown-group">
-            <span className="mobile-nav-link" style={{ cursor: 'default' }}>Experiences</span>
-            <div className="mobile-nav-sublinks">
+            <button 
+              className="mobile-nav-link mobile-dropdown-toggle" 
+              onClick={toggleMobileExperiences}
+            >
+              Experiences <span className={`nav-dropdown-arrow ${mobileExperiencesOpen ? 'open' : ''}`}>▼</span>
+            </button>
+            <div className={`mobile-nav-sublinks ${mobileExperiencesOpen ? 'open' : ''}`}>
               <Link to="/retreats/social" onClick={closeMenu} className="mobile-nav-sublink">Social</Link>
               <Link to="/retreats/wellness" onClick={closeMenu} className="mobile-nav-sublink">Wellness</Link>
               <Link to="/retreats/movement" onClick={closeMenu} className="mobile-nav-sublink">Movement</Link>
