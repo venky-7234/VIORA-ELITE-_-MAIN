@@ -6,6 +6,7 @@ import { Movement } from './pages/Retreats/Movement';
 import { Wellness } from './pages/Retreats/Wellness';
 import { Cottage } from './pages/Retreats/Cottage';
 import { Social } from './pages/Retreats/Social';
+import { Culture } from './pages/Retreats/Culture';
 import { GalleryPage } from './pages/Gallery/GalleryPage';
 import { EditionsPage } from './pages/Editions/EditionsPage';
 import { InvitationPage } from './pages/Invitation/InvitationPage';
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="retreats/wellness" element={<Wellness />} />
           <Route path="retreats/cottage" element={<Cottage />} /> 
           <Route path="retreats/social" element={<Social />} /> 
+          <Route path="retreats/culture" element={<Culture />} /> 
           <Route path="gallery" element={<GalleryPage />} /> 
           <Route path="editions" element={<EditionsPage />} /> 
           <Route path="invitations" element={<InvitationPage />} /> 

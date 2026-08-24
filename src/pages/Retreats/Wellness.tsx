@@ -59,6 +59,14 @@ export const Wellness: React.FC = () => {
           animate={{ opacity: 0.6, width: 60 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         ></motion.div>
+        <motion.p
+          className="wellness-subtitle"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          Experiences designed to restore, reset and reconnect - from considered moments of stillness to elevated approaches to wellbeing. A space to slow down, step back and return renewed...
+        </motion.p>
       </div>
 
       <div className="flex-gallery-container">

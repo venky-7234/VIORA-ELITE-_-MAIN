@@ -98,20 +98,17 @@ export const Movement: React.FC = () => {
     <div className="retreat-page" ref={containerRef} style={{ height: '250vh', background: 'var(--bg-color)', backgroundImage: 'url("/media/icons/Pattern-01.svg")', backgroundSize: '800px', backgroundPosition: 'center', backgroundRepeat: 'repeat', position: 'relative' }}>
       
       {/* Sticky container holds the 3D scene in place */}
-      <div style={{ position: 'sticky', top: '110px', height: 'calc(100vh - 110px)', overflow: 'hidden', perspective: '1500px', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ position: 'sticky', top: '110px', height: 'calc(100vh - 110px)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
         
         {/* Top Center Heading */}
         <motion.div style={{ 
-          position: 'absolute', 
-          top: '6rem', 
-          left: 0,
+          position: 'relative', 
+          paddingTop: '4rem', 
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          zIndex: 10, 
-          opacity: headingOpacity, 
-          y: headingY 
+          zIndex: 100
         }}>
           <h2 style={{ 
             fontFamily: 'var(--font-sans)', 
@@ -129,10 +126,24 @@ export const Movement: React.FC = () => {
             Movement
           </h2>
           <div style={{ height: '1px', width: '60px', background: 'var(--accent-color)', marginTop: '0.75rem', opacity: 0.6 }}></div>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)',
+            lineHeight: 1.6,
+            color: 'var(--text-secondary)',
+            maxWidth: '700px',
+            margin: '1.5rem auto 0 auto',
+            opacity: 1,
+            fontWeight: 400,
+            textAlign: 'center',
+            padding: '0 1rem'
+          }}>
+            A more elevated approach to movement, bringing together fitness, sport and active pursuits in considered settings. For experiences that challenge, energise and leave you wanting more
+          </p>
         </motion.div>
 
         {/* The 3D Cylinder Container */}
-        <div style={{ flex: 1, position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', transformStyle: 'preserve-3d' }}>
+        <div style={{ flex: 1, position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', perspective: '1500px', transformStyle: 'preserve-3d' }}>
           
           <motion.div 
             style={{ 

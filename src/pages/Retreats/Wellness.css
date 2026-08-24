@@ -41,6 +41,17 @@
   opacity: 0.6;
 }
 
+.wellness-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 1.5rem auto 0 auto;
+  opacity: 0.8;
+  font-weight: 300;
+}
+
 .flex-gallery-container {
   display: flex;
   flex: 1;

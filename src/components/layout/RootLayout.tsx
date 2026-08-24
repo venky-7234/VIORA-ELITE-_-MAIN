@@ -39,8 +39,8 @@ export const RootLayout: React.FC = () => {
 
   return (
     <ReactLenis root options={{ 
-      lerp: 0.08, // Buttery smooth but responsive
-      wheelMultiplier: 1.0, // Normal wheel scroll speed
+      lerp: 0.05, // Slower, smoother interpolation
+      wheelMultiplier: 0.7, // Slower wheel scroll speed
       smoothWheel: true,
     }}>
       <CustomCursor />
