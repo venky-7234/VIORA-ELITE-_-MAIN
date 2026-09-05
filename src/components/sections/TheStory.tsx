@@ -9,32 +9,32 @@ const ParallaxImage = ({ className = '' }: { className?: string }) => {
     target: ref,
     offset: ["start end", "end start"]
   });
-  
+
   // Parallax translation for the image inside the clipping mask
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   // Breathing scale down effect as you scroll down
   const scale = useTransform(scrollYProgress, [0, 1], [1.25, 1.05]);
-  
+
   // Mask reveal on scroll (sliding open from bottom to top)
   const maskReveal: any = {
     hidden: { clipPath: "inset(100% 0 0 0)", opacity: 0 },
-    visible: { 
-      clipPath: "inset(0% 0 0 0)", 
+    visible: {
+      clipPath: "inset(0% 0 0 0)",
       opacity: 1,
-      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } 
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   return (
-    <motion.div 
-      ref={ref} 
+    <motion.div
+      ref={ref}
       className={`story-image-placeholder-wrapper ${className}`}
       variants={maskReveal}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
     >
-      <motion.div 
+      <motion.div
         className="parallax-inner"
         style={{ y, scale }}
       >
@@ -108,7 +108,7 @@ export const TheStory: React.FC = () => {
     <div className="story-page-container">
       {/* The Central Canvas Card framing the whole page */}
       <div className="story-canvas-card">
-        
+
         {/* Section 1: Intro */}
         <section className="story-intro-section">
           <div className="story-intro-image">
@@ -128,24 +128,24 @@ export const TheStory: React.FC = () => {
             <div className="collage-img-left">
               <ParallaxImage />
             </div>
-            
+
             <div className="collage-img-right">
               <ParallaxImage />
             </div>
-            
+
             {/* Absolute Centered Overlapping Card */}
             <div className="collage-center-card">
               <RevealHeading delay={0.2} className="collage-card-title">
                 The Idea
               </RevealHeading>
-              
-              <StaggeredText 
+
+              <StaggeredText
                 delay={0.4}
                 className="collage-card-text"
                 text="Viora is a curated experience, created around exceptional company, distinctive settings and moments worth experiencing. Bringing together a carefully considered circle across private residences, unique spaces and unexpected destinations, each experience offers a more intimate perspective on how we gather, connect and discover. Shaped by the people, the place and the moment, every Viora is distinctly its own."
               />
-              
-              <StaggeredText 
+
+              <StaggeredText
                 delay={1.5}
                 className="collage-card-highlight"
                 text="Because the best experiences rarely need explaining."
@@ -160,13 +160,13 @@ export const TheStory: React.FC = () => {
             <RevealHeading>
               <h2 className="story-list-title" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>The Viora Standard</h2>
             </RevealHeading>
-            
-            <StaggeredText 
+
+            <StaggeredText
               delay={0.1}
               className="intro-paragraph"
               text="What defines a Viora experience"
             />
-            
+
             <div className="story-list" style={{ marginTop: '2.5rem' }}>
               <div className="story-list-item">
                 <RevealHeading delay={0.3} className="story-list-title">People</RevealHeading>
@@ -186,7 +186,7 @@ export const TheStory: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="asym-image-col">
             <div className="asym-inner-img">
               <ParallaxImage />

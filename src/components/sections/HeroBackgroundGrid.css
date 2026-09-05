@@ -19,9 +19,19 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(26,26,26,0.3) 0%, var(--bg-color) 85%);
+  background: radial-gradient(circle at center, rgba(26,26,26,0.1) 0%, var(--bg-color) 70%);
   z-index: 2;
   pointer-events: none;
+}
+
+/* Subtle noise texture over the entire grid */
+.hero-bg-grid-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 .hero-bg-grid {
@@ -79,23 +89,19 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 20px;
-  /* Viora Elite gold placeholder gradient */
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.02) 100%);
+  /* Image sizing and positioning */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(212, 175, 55, 0.1); /* fallback */
   box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.1);
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
+  opacity: 0.55; /* increased to show more of the background images */
 }
 
-/* Subtle noise texture on the cards */
-.hero-bg-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
-  pointer-events: none;
-  mix-blend-mode: overlay;
-}
+
 
 /* ── Mobile Responsiveness ─────────────────────────────── */
 @media (max-width: 768px) {
@@ -111,14 +117,14 @@
   }
   .hero-bg-grid-overlay {
     /* Push the dark fade further out on mobile so it doesn't swallow the screen */
-    background: radial-gradient(circle at center, rgba(26,26,26,0.1) 0%, var(--bg-color) 120%);
+    background: radial-gradient(circle at center, rgba(26,26,26,0.05) 0%, var(--bg-color) 100%);
   }
   .hero-bg-card {
-    /* Make the cards slightly more visible since noise is disabled */
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(212, 175, 55, 0.05) 100%);
+    /* Adjust fallback background color for mobile */
+    background-color: rgba(212, 175, 55, 0.15);
     box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.2);
   }
-  .hero-bg-card::after {
+  .hero-bg-grid-overlay::after {
     display: none; /* Prevent GPU crashes on mobile */
   }
 }

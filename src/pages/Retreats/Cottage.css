@@ -1,280 +1,171 @@
 .cottage-page {
   width: 100%;
-  position: relative;
-  /* background is set inline to var(--bg-color) */
-}
-
-.cottage-sticky-container {
-  position: sticky;
-  top: 110px;
-  width: 100vw;
-  height: calc(100vh - 110px);
-  overflow: hidden;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  background-image: url("/media/icons/Pattern-01.svg");
+  background-size: 800px;
+  background-position: center;
+  background-repeat: repeat;
 }
 
-/* The dark archway background on the right */
-.giant-arch {
-  position: absolute;
-  right: -20vw;
-  top: -10vh;
-  width: 70vw;
-  height: 120vh;
-  background-color: #1a1a1a;
-  border-radius: 100vh 0 0 100vh;
-  z-index: 1;
-  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-  will-change: transform;
-}
-
-/* Global Heading for Gallery Phase */
-.cottage-global-heading {
-  position: absolute;
-  top: 5rem;
-  left: 5rem;
-  z-index: 10;
-  will-change: opacity;
-}
-.cottage-global-heading h2 {
-  font-family: var(--font-sans);
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  color: var(--text-primary);
-  margin: 0;
-}
-.cottage-global-heading .heading-line {
-  height: 1px;
-  width: 50px;
-  background: var(--accent-color);
-  margin-top: 1rem;
-}
-
-/* Cottage Cards */
-.cottage-card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -15vw;
-  margin-top: -25vh;
-  width: 30vw;
-  height: 50vh;
-  min-width: 280px;
-  max-width: 400px;
-  min-height: 400px;
-  max-height: 550px;
-  
-  /* Physical Paper Aesthetic */
-  background: var(--bg-color);
-  box-shadow: 
-    0 10px 30px rgba(0,0,0,0.05),
-    inset 0 0 0 1px rgba(212, 175, 55, 0.3);
-  border-radius: 4px;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-  will-change: transform, opacity;
-  transform-origin: center center;
-}
-
-/* Add noise texture to paper cards */
-.cottage-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.6;
-  mix-blend-mode: multiply;
-}
-
-.cottage-card-inner {
+.cottage-coverflow-section {
   position: relative;
-  z-index: 2;
-  padding: 2rem;
-  text-align: center;
   width: 100%;
-  height: 100%;
+  height: 80vh;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  perspective: 1000px;
 }
 
-.cottage-card-inner h4 {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
+.cottage-coverflow-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
 }
 
-.cottage-card-inner p {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-width: 80%;
-}
-
-.card-number {
+.cottage-coverflow-card {
   position: absolute;
-  bottom: 2rem;
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  letter-spacing: 0.3em;
-  color: var(--accent-color);
+  width: 300px;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transition: border-color 0.3s ease, filter 0.3s ease;
+  filter: brightness(0.5);
 }
 
-/* Cottage Modal / Pop-out (Replaces old article logic) */
-.cottage-modal-overlay {
-  position: fixed;
+.cottage-coverflow-card.active {
+  filter: brightness(1);
+  border-color: rgba(212, 175, 55, 0.6);
+  cursor: default;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+.cottage-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(26, 26, 26, 0.8);
-  backdrop-filter: blur(10px);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  z-index: -1;
 }
 
-.cottage-modal-card {
-  width: 90vw;
-  max-width: 800px;
-  height: 80vh;
-  max-height: 700px;
-  background: var(--bg-color);
-  box-shadow: 
-    0 20px 50px rgba(0,0,0,0.3),
-    inset 0 0 0 1px rgba(212, 175, 55, 0.5);
-  border-radius: 4px;
-  position: relative;
-  cursor: auto;
-  overflow: hidden;
-}
-
-/* Noise texture for the modal card too */
-.cottage-modal-card::before {
-  content: '';
+.cottage-coverflow-content {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.6;
-  mix-blend-mode: multiply;
-}
-
-.cottage-modal-inner {
-  position: relative;
-  z-index: 2;
-  padding: 4rem;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1.5rem 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
   text-align: center;
 }
 
-.cottage-modal-close {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: transparent;
-  border: none;
-  color: var(--text-primary);
-  font-size: 1.5rem;
-  cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.3s;
-}
-.cottage-modal-close:hover {
-  opacity: 1;
-}
-
-.cottage-modal-inner .article-eyebrow {
+.cottage-coverflow-content h3 {
   font-family: var(--font-sans);
-  font-size: 0.9rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
   color: var(--accent-color);
-  margin-bottom: 1rem;
-}
-
-.cottage-modal-inner .article-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 4rem);
-  text-transform: uppercase;
+  font-size: 1.5rem;
   letter-spacing: 0.1em;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.cottage-modal-inner .article-divider {
-  width: 100px;
-  height: 1px;
-  background: var(--accent-color);
-  margin: 2rem 0;
-}
-
-.cottage-modal-inner .article-body {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin-bottom: 3rem;
-}
-
-.cottage-modal-inner .article-btn {
-  padding: 1rem 3rem;
-  background: transparent;
-  border: 1px solid var(--accent-color);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.9rem;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.cottage-coverflow-content p {
+  font-family: var(--font-body);
+  color: #fff;
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.cottage-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  z-index: 100;
+}
+
+.cottage-btn {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--accent-color);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  flex-shrink: 0;
+}
+
+.cottage-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: scale(1.1);
+}
+
+.cottage-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  max-width: 60vw;
+}
+
+.cottage-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
   cursor: pointer;
   transition: all 0.3s ease;
 }
-.cottage-modal-inner .article-btn:hover {
+
+.cottage-indicator.active {
   background: var(--accent-color);
-  color: var(--bg-color);
+  transform: scale(1.5);
 }
 
-/* Mobile Adjustments */
 @media (max-width: 768px) {
-  .cottage-global-heading {
-    top: 2rem;
-    left: 2rem;
+  .cottage-coverflow-card {
+    width: 220px;
+    height: 320px;
   }
   
-  .giant-arch {
-    right: -50vw;
-    width: 100vw;
+  .cottage-coverflow-content h3 {
+    font-size: 1.1rem;
   }
   
-  .cottage-card {
-    width: 70vw;
-    height: 40vh;
-    margin-left: -35vw;
-    margin-top: -20vh;
+  .cottage-indicators {
+    gap: 0.5rem;
+    max-width: 50vw;
   }
   
-  .cottage-modal-inner {
-    padding: 2rem;
+  .cottage-indicator {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .cottage-controls {
+    gap: 1rem;
   }
 }

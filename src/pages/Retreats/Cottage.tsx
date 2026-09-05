@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Cottage.css';
 
 const COTTAGE_DATA = [
@@ -11,109 +11,139 @@ const COTTAGE_DATA = [
   { id: 6, title: 'Maple Sanctuary', desc: 'Warm hues and a cozy setting.', body: 'Designed for intimacy, the Maple Sanctuary is a perfect romantic getaway nestled among vibrant seasonal foliage and peaceful winding paths.' },
 ];
 
-const CottageCard = ({ data, index, scroll100, onClick }: any) => {
-  // Calculate keyframes based on index on a 0-100 scale
-  const peak = index * 15; 
-  const p1 = peak - 20; // Start at bottom
-  const p2 = peak - 10; // Mid-way up
-  const p3 = peak;      // Center / Peak
-  const p4 = peak + 10; // Mid-way down
-  const p5 = peak + 20; // End at top
-
-  // 5-point interpolation to create a smooth, curved arc along the giant black arch
-  const x = useTransform(scroll100, [p1, p2, p3, p4, p5], ['60vw', '15vw', '0vw', '15vw', '60vw']);
-  const y = useTransform(scroll100, [p1, p2, p3, p4, p5], ['100vh', '55vh', '15vh', '-25vh', '-70vh']);
-  const rotate = useTransform(scroll100, [p1, p2, p3, p4, p5], [-40, -20, 0, 20, 40]);
-  const opacity = useTransform(scroll100, [p1, p1 + 5, p3, p5 - 5, p5], [0, 1, 1, 1, 0]);
-  const scale = useTransform(scroll100, [p1, p3, p5], [0.8, 1, 0.8]);
-
-  return (
-    <motion.div 
-      className="cottage-card"
-      style={{ x, y, rotate, opacity, scale }}
-      onClick={() => onClick(data)}
-      layoutId={`card-${data.id}`}
-      whileHover={{ scale: 1.05 }}
-    >
-      <div className="cottage-card-inner">
-        <h4>{data.title}</h4>
-        <p>{data.desc}</p>
-        <span className="card-number">0{data.id} / 06</span>
-      </div>
-    </motion.div>
-  );
-};
-
 export const Cottage: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [selectedCard, setSelectedCard] = useState<any>(null);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const scroll100 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % COTTAGE_DATA.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + COTTAGE_DATA.length) % COTTAGE_DATA.length);
+  };
+
+  const handleCardClick = (index: number) => {
+    setCurrentIndex(index);
+  };
 
   return (
-    <div className="cottage-page" ref={containerRef} style={{ height: '400vh', background: 'var(--bg-color)' }}>
-      {/* Sticky Container for Animation */}
-      <div className="cottage-sticky-container">
-        
-        {/* Giant Archway */}
-        <div className="giant-arch" />
+    <div className="cottage-page">
+      {/* Top Center Heading */}
+      <motion.div style={{ 
+        position: 'relative', 
+        paddingTop: '6rem', 
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        zIndex: 100
+      }}>
+        <h2 style={{ 
+          fontFamily: 'var(--font-sans)', 
+          fontWeight: 400,
+          fontSize: 'clamp(1.2rem, 3vw, 1.8rem)', 
+          textTransform: 'uppercase', 
+          letterSpacing: '0.4em', 
+          margin: 0,
+          textAlign: 'center',
+          background: 'linear-gradient(160deg, #b8860b 0%, #d4af37 40%, #8b6508 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+        }}>
+          Escapes
+        </h2>
+        <div style={{ height: '1px', width: '60px', background: 'var(--accent-color)', margin: '0.75rem 0', opacity: 0.6 }}></div>
+        <p style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: 'clamp(0.9rem, 1.2vw, 1.1rem)',
+          lineHeight: 1.6,
+          color: 'var(--text-secondary)',
+          maxWidth: '700px',
+          margin: '1.5rem auto 0 auto',
+          opacity: 1,
+          fontWeight: 400,
+          textAlign: 'center',
+          padding: '0 1rem',
+          marginBottom: '2rem'
+        }}>
+          A collection of stays and escapes chosen for their setting, character and sense of discovery. Private spaces and distinctive destinations that offer a reason to leave the familiar behind.
+        </p>
+      </motion.div>
 
-        {/* Global Heading */}
-        <div className="cottage-global-heading">
-          <h2>Cottage Retreats</h2>
-          <div className="heading-line"></div>
+      {/* 3D Coverflow Carousel */}
+      <section className="cottage-coverflow-section">
+        <div className="cottage-coverflow-container">
+          <AnimatePresence initial={false}>
+            {COTTAGE_DATA.map((item, index) => {
+              const offset = index - currentIndex;
+              
+              let normalizedOffset = offset;
+              const half = Math.floor(COTTAGE_DATA.length / 2);
+              if (offset > half) normalizedOffset -= COTTAGE_DATA.length;
+              if (offset < -half) normalizedOffset += COTTAGE_DATA.length;
+
+              const isCenter = normalizedOffset === 0;
+              const zIndex = 50 - Math.abs(normalizedOffset);
+
+              return (
+                <motion.div
+                  key={item.id}
+                  className={`cottage-coverflow-card ${isCenter ? 'active' : ''}`}
+                  onClick={() => handleCardClick(index)}
+                  initial={false}
+                  animate={{
+                    rotateY: normalizedOffset * -25,
+                    scale: isCenter ? 1 : 0.8,
+                    x: `calc(${normalizedOffset * 60}% + ${normalizedOffset > 0 ? 10 : normalizedOffset < 0 ? -10 : 0}px)`, 
+                    z: Math.abs(normalizedOffset) * -100,
+                    opacity: Math.abs(normalizedOffset) >= 3 ? 0 : 1,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 20,
+                    mass: 1
+                  }}
+                  style={{ zIndex }}
+                >
+                  <div className="cottage-placeholder"></div>
+                  
+                  {isCenter && (
+                    <motion.div 
+                      className="cottage-coverflow-content"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h3>{item.title}</h3>
+                      <p>{item.desc}</p>
+                    </motion.div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
-
-        {/* --- CARDS --- */}
-        {COTTAGE_DATA.map((card, idx) => (
-          <CottageCard 
-            key={card.id} 
-            data={card} 
-            index={idx} 
-            scroll100={scroll100} 
-            onClick={setSelectedCard} 
-          />
-        ))}
-      </div>
-
-      {/* --- MODAL / POP-OUT --- */}
-      <AnimatePresence>
-        {selectedCard && (
-          <motion.div 
-            className="cottage-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedCard(null)}
-          >
-            <motion.div 
-              className="cottage-modal-card"
-              layoutId={`card-${selectedCard.id}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="cottage-modal-inner">
-                <button className="cottage-modal-close" onClick={() => setSelectedCard(null)}>
-                  ✕
-                </button>
-                <h5 className="article-eyebrow">Article</h5>
-                <h2 className="article-title">{selectedCard.title}</h2>
-                <div className="article-divider"></div>
-                <p className="article-body">{selectedCard.body}</p>
-                <button className="article-btn">Reserve Now</button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        
+        <div className="cottage-controls">
+          <button className="cottage-btn" onClick={handlePrev}>&larr;</button>
+          <div className="cottage-indicators">
+            {COTTAGE_DATA.map((_, idx) => (
+              <span 
+                key={idx} 
+                className={`cottage-indicator ${idx === currentIndex ? 'active' : ''}`}
+                onClick={() => handleCardClick(idx)}
+              />
+            ))}
+          </div>
+          <button className="cottage-btn" onClick={handleNext}>&rarr;</button>
+        </div>
+      </section>
     </div>
   );
 };

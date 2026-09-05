@@ -36,7 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
     setIsOpen(false);
     setMobileExperiencesOpen(false);
   };
-  
+
   const toggleMobileExperiences = () => setMobileExperiencesOpen(!mobileExperiencesOpen);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -144,7 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
         <div className="navbar-menu">
           <Link to="/gallery" onClick={handleGalleryClick} className="nav-link">The Journal</Link>
           <Link to="/editions" onClick={handleEditionsClick} className="nav-link">Editions</Link>
-          
+
           {/* Experiences Dropdown */}
           <div className="nav-dropdown-container">
             <span className="nav-link nav-link-dropdown" style={{ cursor: 'pointer' }}>
@@ -177,19 +177,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
             </div>
           </div>
 
-          <button 
+          <button
             id="theme-toggle-btn"
-            className="theme-toggle" 
-            onClick={toggleTheme} 
+            className="theme-toggle"
+            onClick={toggleTheme}
             aria-label="Toggle theme"
           >
             {renderThemeIcon()}
           </button>
-          
-          <Button 
+
+          <Button
             id="nav-apply-btn"
-            variant="outline" 
-            size="sm" 
+            variant="outline"
+            size="sm"
             onClick={onApplyClick}
           >
             Apply for Invite
@@ -198,18 +198,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
 
         {/* Mobile Buttons */}
         <div className="navbar-mobile-controls">
-          <button 
+          <button
             id="mobile-theme-toggle-btn"
-            className="theme-toggle" 
-            onClick={toggleTheme} 
+            className="theme-toggle"
+            onClick={toggleTheme}
             aria-label="Toggle theme"
           >
             {renderThemeIcon()}
           </button>
-          <button 
+          <button
             id="menu-toggle-btn"
-            className="menu-toggle" 
-            onClick={toggleMenu} 
+            className="menu-toggle"
+            onClick={toggleMenu}
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -222,10 +222,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
         <div className="mobile-drawer-links">
           <Link to="/gallery" onClick={handleGalleryClick} className="mobile-nav-link">The Journal</Link>
           <Link to="/editions" onClick={handleEditionsClick} className="mobile-nav-link">Editions</Link>
-          
+
           <div className="mobile-nav-dropdown-group">
-            <button 
-              className="mobile-nav-link mobile-dropdown-toggle" 
+            <button
+              className="mobile-nav-link mobile-dropdown-toggle"
               onClick={toggleMobileExperiences}
             >
               Experiences <span className={`nav-dropdown-arrow ${mobileExperiencesOpen ? 'open' : ''}`}>▼</span>
@@ -238,16 +238,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onApplyClick }) => {
               <Link to="/retreats/culture" onClick={closeMenu} className="mobile-nav-sublink">Culture</Link>
             </div>
           </div>
-          
+
           <Link to="/invitations" onClick={handleInvitationClick} className="mobile-nav-link">Invitations</Link>
-          
+
           <div className="mobile-drawer-divider"></div>
-          
-          <Button 
+
+          <Button
             id="mobile-nav-apply-btn"
-            variant="primary" 
-            size="md" 
-            fullWidth 
+            variant="primary"
+            size="md"
+            fullWidth
             onClick={() => { closeMenu(); onApplyClick(); }}
           >
             Apply for Invite

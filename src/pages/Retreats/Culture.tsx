@@ -1,82 +1,36 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Culture.css';
-import './Retreats.css'; 
+import './Retreats.css';
 
-// 3 elegant cards for the 3D stack
-const emptyCards = Array.from({ length: 3 }).map((_, i) => ({
-  id: i,
-  label: `Viora ${i + 1}`
+const cultureItems = Array.from({ length: 10 }).map((_, i) => ({
+  id: i + 1,
+  title: `Culture Experience ${i + 1}`,
+  description: `Discover the details of our exclusive culture experience number ${i + 1}.`,
+  image: "" // No images for now
 }));
-
-const StackCard = ({ index, total, scrollYProgress }: { index: number, total: number, scrollYProgress: any }) => {
-  const step = 1 / total;
-  // Strictly monotonically increasing array of scroll points for this card
-  const p1 = index * step - step; 
-  const p2 = index * step;
-  const p3 = (index + 1) * step;
-  const p4 = p3 + 0.1;
-
-  // The cards sit in the back stack, move to front, then fly away based on the scroll progress
-  const scale = useTransform(
-    scrollYProgress,
-    [p1, p2, p3, p4],
-    [0.85, 1, 1, 1.5]
-  );
-
-  const yOffset = useTransform(
-    scrollYProgress,
-    [p1, p2, p3, p4],
-    [-40, 0, 0, -300]
-  );
-
-  const zIndex = total - index;
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [p1, p2, p3, p4],
-    [0.4, 1, 1, 0]
-  );
-  
-  const baseRotationZ = (index % 2 === 0 ? 1 : -1) * (index * 2);
-  const rotateZ = useTransform(
-    scrollYProgress,
-    [p1, p2, p3, p4],
-    [baseRotationZ, 0, 0, (index % 2 === 0 ? 10 : -10)]
-  );
-
-  return (
-    <motion.div
-      className="culture-card-stack"
-      style={{
-        scale,
-        y: yOffset,
-        opacity,
-        rotateZ,
-        zIndex
-      }}
-    >
-      <span>{emptyCards[index].label}</span>
-    </motion.div>
-  );
-};
 
 export const Culture: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
-  // Track scroll progress as the container enters and leaves the viewport (no pinning)
-  const { scrollYProgress } = useScroll({
-    target: scrollContainerRef,
-    offset: ["start start", "end end"]
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % cultureItems.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + cultureItems.length) % cultureItems.length);
+  };
+
+  const handleCardClick = (index: number) => {
+    setCurrentIndex(index);
+  };
 
   return (
     <div className="culture-page">
-      
       {/* Top Center Heading */}
       <motion.div style={{ 
         position: 'relative', 
@@ -114,26 +68,85 @@ export const Culture: React.FC = () => {
           fontWeight: 400,
           textAlign: 'center',
           padding: '0 1rem',
-          marginBottom: '4rem'
+          marginBottom: '2rem'
         }}>
           Experiences shaped by creativity, culture and the things that inspire conversation. From art and design to music, cinema and the culinary world, each one offers another way to discover something new.
         </p>
       </motion.div>
 
-      {/* 3D Scroll Gallery Section (Normal scrolling, no pinning) */}
-      <div className="culture-scroll-container" ref={scrollContainerRef} style={{ minHeight: '250vh', display: 'flex', alignItems: 'flex-start' }}>
-        <div className="culture-stack-container" style={{ position: 'sticky', top: '25vh' }}>
-          {emptyCards.map((_, index) => (
-            <StackCard 
-              key={index} 
-              index={index} 
-              total={emptyCards.length} 
-              scrollYProgress={scrollYProgress} 
-            />
-          ))}
-        </div>
-      </div>
+      {/* 3D Coverflow Carousel */}
+      <section className="culture-coverflow-section">
+        <div className="culture-coverflow-container">
+          <AnimatePresence initial={false}>
+            {cultureItems.map((item, index) => {
+              const offset = index - currentIndex;
+              
+              // Handle wrap-around math for smooth infinite loop feeling
+              let normalizedOffset = offset;
+              const half = Math.floor(cultureItems.length / 2);
+              if (offset > half) normalizedOffset -= cultureItems.length;
+              if (offset < -half) normalizedOffset += cultureItems.length;
 
+              const isCenter = normalizedOffset === 0;
+              const zIndex = 50 - Math.abs(normalizedOffset);
+
+              return (
+                <motion.div
+                  key={item.id}
+                  className={`culture-coverflow-card ${isCenter ? 'active' : ''}`}
+                  onClick={() => handleCardClick(index)}
+                  initial={false}
+                  animate={{
+                    rotateY: normalizedOffset * -25, // tilt opposite to side
+                    scale: isCenter ? 1 : 0.8,
+                    x: `calc(${normalizedOffset * 60}% + ${normalizedOffset > 0 ? 10 : normalizedOffset < 0 ? -10 : 0}px)`, 
+                    z: Math.abs(normalizedOffset) * -100, // push back
+                    opacity: Math.abs(normalizedOffset) >= 3 ? 0 : 1, // show more cards
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 20,
+                    mass: 1
+                  }}
+                  style={{
+                    zIndex
+                  }}
+                >
+                  {/* <img src={item.image} alt={item.title} className="coverflow-image" /> */}
+                  <div className="coverflow-placeholder"></div>
+                  
+                  {isCenter && (
+                    <motion.div 
+                      className="coverflow-content"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
+                    </motion.div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+        
+        <div className="coverflow-controls">
+          <button className="coverflow-btn" onClick={handlePrev}>&larr;</button>
+          <div className="coverflow-indicators">
+            {cultureItems.map((_, idx) => (
+              <span 
+                key={idx} 
+                className={`indicator ${idx === currentIndex ? 'active' : ''}`}
+                onClick={() => handleCardClick(idx)}
+              />
+            ))}
+          </div>
+          <button className="coverflow-btn" onClick={handleNext}>&rarr;</button>
+        </div>
+      </section>
     </div>
   );
 };

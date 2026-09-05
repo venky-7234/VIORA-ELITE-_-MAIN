@@ -15,19 +15,10 @@ const CylinderCard = ({ index, total, scrollYProgress }: { index: number, total:
   // Angle for this card in the cylinder
   const angle = (index / total) * 360;
 
-  // Animate the rotation so it starts at 0 (stacked), fans out to `angle`, holds, and folds back to 0
-  const cardRotateY = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, angle, angle, 0]);
-
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const radius = isMobile ? 200 : 400;
   const mobileScatter = [0, 40, -30, 60, -50, 20, -70, 30];
   const scatterArray = isMobile ? mobileScatter : scatterY;
-
-  // Animate the push outward (Z) from 0 to radius and back
-  const zRadius = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, radius, radius, 0]);
-
-  // Animate the scatter (Y)
-  const yOffset = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, scatterArray[index], scatterArray[index], 0]);
 
   const cardWidth = isMobile ? 160 : 240;
   const cardHeight = isMobile ? 240 : 340;
@@ -44,8 +35,8 @@ const CylinderCard = ({ index, total, scrollYProgress }: { index: number, total:
         marginLeft: `-${cardWidth / 2}px`,
         marginTop: `-${cardHeight / 2}px`,
         transformStyle: 'preserve-3d',
-        // Rotate the arm dynamically
-        rotateY: cardRotateY
+        // Permanently fanned out
+        rotateY: angle
       }}
     >
       <motion.div
@@ -63,9 +54,9 @@ const CylinderCard = ({ index, total, scrollYProgress }: { index: number, total:
           color: 'var(--text-primary)',
           fontSize: '1.2rem',
           fontFamily: 'var(--font-sans)',
-          // Push out along Z to form the cylinder radius, and scatter along Y
-          z: zRadius,
-          y: yOffset
+          // Permanently pushed out along Z to form the cylinder radius, and scattered along Y
+          z: radius,
+          y: scatterArray[index]
         }}
       >
         <span style={{ opacity: 0.8 }}>{cards[index].title}</span>
@@ -87,15 +78,15 @@ export const Movement: React.FC = () => {
   });
 
   // Rotate the entire cylinder from 0 to 360 degrees (1 full rotation) as user scrolls
-  const cylinderRotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const cylinderRotation = useTransform(scrollYProgress, [0, 1], [0, -360]);
 
   // Heading flies away quickly at the start of the scroll
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const headingY = useTransform(scrollYProgress, [0, 0.1], [0, -50]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
+  const headingY = useTransform(scrollYProgress, [0, 0.05], [0, -50]);
 
   return (
     // Make the page tall enough to allow scrolling
-    <div className="retreat-page" ref={containerRef} style={{ height: '250vh', background: 'var(--bg-color)', backgroundImage: 'url("/media/icons/Pattern-01.svg")', backgroundSize: '800px', backgroundPosition: 'center', backgroundRepeat: 'repeat', position: 'relative' }}>
+    <div className="retreat-page" ref={containerRef} style={{ height: '500vh', background: 'var(--bg-color)', backgroundImage: 'url("/media/icons/Pattern-01.svg")', backgroundSize: '800px', backgroundPosition: 'center', backgroundRepeat: 'repeat', position: 'relative' }}>
       
       {/* Sticky container holds the 3D scene in place */}
       <div style={{ position: 'sticky', top: '110px', height: 'calc(100vh - 110px)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>

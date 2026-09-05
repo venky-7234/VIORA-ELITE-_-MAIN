@@ -19,7 +19,7 @@ const App: React.FC = () => {
           <Route index element={<Home />} />
           <Route path="retreats/movement" element={<Movement />} />
           <Route path="retreats/wellness" element={<Wellness />} />
-          <Route path="retreats/cottage" element={<Cottage />} /> 
+          <Route path="retreats/escapes" element={<Cottage />} />
           <Route path="retreats/social" element={<Social />} /> 
           <Route path="retreats/culture" element={<Culture />} /> 
           <Route path="gallery" element={<GalleryPage />} /> 

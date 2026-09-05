@@ -51,9 +51,9 @@ export const Lineage: React.FC = () => {
   return (
     <section id="lineage" className="lineage-section">
       <div className="container">
-        
+
         <div className="lineage-header">
-          <motion.div 
+          <motion.div
             className="lineage-eyebrow"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -62,25 +62,25 @@ export const Lineage: React.FC = () => {
           >
             THE VIORA CODE <span className="lineage-line"></span>
           </motion.div>
-          
-          <motion.h2 
+
+          <motion.h2
             className="lineage-title"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
-            Six things worth knowing<br/>
+            Six things worth knowing<br />
             <span className="lineage-subtitle">before you arrive</span>
           </motion.h2>
         </div>
 
-        <motion.div 
+        <motion.div
           className="lineage-scrubber-container"
           style={{ width: '100%', marginBottom: '2rem' }}
         >
           {/* The Scrubber Line that moves left to right */}
-          <motion.div 
+          <motion.div
             className="lineage-scrubber"
             style={{ height: '2px', backgroundColor: 'var(--accent-color)', originX: 0 }}
             initial={{ scaleX: 0 }}
@@ -90,20 +90,19 @@ export const Lineage: React.FC = () => {
           />
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="lineage-stack"
-          style={{ paddingBottom: '80vh' }}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, margin: "-50px" }}
         >
           {lineageData.map((item, index) => (
-            <motion.div 
-              key={index} 
+            <motion.div
+              key={index}
               className="lineage-card glow-on-hover"
-              style={{ 
-                position: 'sticky', 
+              style={{
+                position: 'sticky',
                 top: `${130 + index * 25}px`, // creates the stacking offset
                 zIndex: index,
                 overflow: 'hidden',
@@ -120,10 +119,10 @@ export const Lineage: React.FC = () => {
               <motion.div
                 className="lineage-mask"
                 style={{
-                  position: 'absolute', 
-                  inset: 0, 
-                  backgroundColor: 'var(--bg-color)', 
-                  zIndex: 10, 
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundColor: 'var(--bg-color)',
+                  zIndex: 10,
                   originX: 1 // Shrinks to the right
                 }}
                 variants={{
@@ -134,7 +133,7 @@ export const Lineage: React.FC = () => {
 
               <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* The Icon (Roman Numeral) that pops in */}
-                <motion.div 
+                <motion.div
                   className="lineage-num"
                   variants={{
                     hidden: { scale: 0.5, opacity: 0 },
@@ -145,7 +144,7 @@ export const Lineage: React.FC = () => {
                 </motion.div>
 
                 {/* The Text that fades and scales in */}
-                <motion.h3 
+                <motion.h3
                   className="lineage-date"
                   variants={{
                     hidden: { opacity: 0, scale: 0.9 },
@@ -154,8 +153,8 @@ export const Lineage: React.FC = () => {
                 >
                   {item.date}
                 </motion.h3>
-                
-                <motion.p 
+
+                <motion.p
                   className="lineage-location"
                   variants={{
                     hidden: { opacity: 0, scale: 0.9 },

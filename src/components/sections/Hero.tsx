@@ -66,10 +66,10 @@ export const Hero: React.FC<HeroProps> = ({ onApplyClick }) => {
               zIndex: 0
             }}
           />
-          
-          <AnimatedVioraLogo 
-            scrollY={scrollY} 
-            className="hero-logo-bird" 
+
+          <AnimatedVioraLogo
+            scrollY={scrollY}
+            className="hero-logo-bird"
           />
         </motion.div>
 

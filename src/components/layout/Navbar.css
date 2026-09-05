@@ -9,12 +9,14 @@
   align-items: center;
   transition: all var(--transition-normal);
   border-bottom: 1px solid transparent;
-  background-color: transparent; /* Transparent at the very top to merge with Hero */
+  background-color: transparent;
+  /* Transparent at the very top to merge with Hero */
 }
 
 .navbar-scrolled {
   height: 100px;
-  background-color: #2b0914; /* Dark burgundy */
+  background-color: #2b0914;
+  /* Dark burgundy */
   border-bottom: 1px solid rgba(212, 175, 55, 0.15);
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(212, 175, 55, 0.08);
 }
@@ -23,16 +25,20 @@
 .navbar-scrolled .viora-nav-title {
   color: #ffffff;
 }
+
 .navbar-scrolled .nav-link {
   color: rgba(255, 255, 255, 0.7);
 }
+
 .navbar-scrolled .nav-link:hover {
   color: #ffffff;
 }
+
 .navbar-scrolled .theme-toggle,
 .navbar-scrolled .menu-toggle {
   color: rgba(255, 255, 255, 0.7);
 }
+
 .navbar-scrolled .theme-toggle:hover,
 .navbar-scrolled .menu-toggle:hover {
   color: #ffffff;
@@ -160,7 +166,8 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background-color: var(--bg-color); /* Adapts to current theme mode */
+  background-color: var(--bg-color);
+  /* Adapts to current theme mode */
   border: 1px solid var(--glass-border);
   border-radius: 8px;
   padding: 0.5rem;
@@ -267,7 +274,8 @@
 /* Mobile Drawer */
 .mobile-drawer {
   position: fixed;
-  top: 110px; /* Under navbar */
+  top: 110px;
+  /* Under navbar */
   left: 0;
   right: 0;
   bottom: 0;
@@ -282,7 +290,7 @@
   flex-direction: column;
 }
 
-.navbar-scrolled + .mobile-drawer {
+.navbar-scrolled+.mobile-drawer {
   top: 100px;
 }
 
@@ -375,6 +383,7 @@
 
 /* Media Queries */
 @media (max-width: 768px) {
+
   .navbar-menu,
   .navbar-actions {
     display: none;
