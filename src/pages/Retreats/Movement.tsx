@@ -11,7 +11,7 @@ const cards = Array.from({ length: 8 }).map((_, i) => ({
 // Y-offsets for the scattered look (pixels)
 const scatterY = [0, 80, -60, 120, -100, 40, -140, 60];
 
-const CylinderCard = ({ index, total, scrollYProgress }: { index: number, total: number, scrollYProgress: any }) => {
+const CylinderCard = ({ index, total }: { index: number, total: number }) => {
   // Angle for this card in the cylinder
   const angle = (index / total) * 360;
 
@@ -99,7 +99,9 @@ export const Movement: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          zIndex: 100
+          zIndex: 100,
+          opacity: headingOpacity,
+          y: headingY
         }}>
           <h2 style={{ 
             fontFamily: 'var(--font-sans)', 
@@ -150,7 +152,6 @@ export const Movement: React.FC = () => {
                 key={index} 
                 index={index} 
                 total={cards.length} 
-                scrollYProgress={scrollYProgress} 
               />
             ))}
           </motion.div>
