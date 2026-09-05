@@ -18,14 +18,14 @@ export const HeroBackgroundGrid: React.FC = () => {
   // Each column will have 10 cards, duplicated once (20 total).
   // This drastically reduces DOM elements to prevent freezing.
   const cols = [
-    { direction: 'up', cards: 10 },
-    { direction: 'down', cards: 10 },
-    { direction: 'up', cards: 10 },
-    { direction: 'down', cards: 10 },
-    { direction: 'up', cards: 10 },
-    { direction: 'down', cards: 10 },
-    { direction: 'up', cards: 10 },
-    { direction: 'down', cards: 10 },
+    { direction: 'up', cards: 12 },
+    { direction: 'down', cards: 12 },
+    { direction: 'up', cards: 12 },
+    { direction: 'down', cards: 12 },
+    { direction: 'up', cards: 12 },
+    { direction: 'down', cards: 12 },
+    { direction: 'up', cards: 12 },
+    { direction: 'down', cards: 12 },
   ];
 
   return (

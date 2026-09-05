@@ -37,8 +37,8 @@
 .hero-bg-grid {
   display: flex;
   gap: 1rem;
-  width: 130vw;
-  height: 250vh;
+  width: 120vw;
+  height: 120vh;
   /* Rotate slightly for a dynamic look. Scale up to avoid empty corners */
   transform: rotate(-10deg) scale(1.4);
 }
@@ -109,7 +109,8 @@
     gap: 0.5rem;
     transform: rotate(-10deg) scale(1.6);
     /* Force grid to be wider on mobile so 8 columns don't become tiny */
-    min-width: 800px; 
+    min-width: 900px; 
+    height: 120vh; 
   }
   .hero-bg-col {
     gap: 0.5rem;
